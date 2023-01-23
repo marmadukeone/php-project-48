@@ -2,7 +2,7 @@
     "name": "hexlet/code",
     "autoload": {
         "psr-4": {
-            "Hexlet\\Code\\": "scr/"
+            "Hexlet\\Code\\": "src/"
         }
     },
     "require": {
