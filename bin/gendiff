@@ -1,6 +1,6 @@
 #!/usr/bin/env php
 <?PHP
-require('../vendor/docopt/docopt/src/docopt.php');
+require('/../vendor/docopt/docopt/src/docopt.php');
 $doc = <<<'DOCOPT' Generate diff
 
 Usage: gendiff (-h|--help) gendiff (-v|--version)
