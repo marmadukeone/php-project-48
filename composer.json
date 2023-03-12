@@ -1,14 +1,17 @@
 {
-    "name": "hexlet/code",
-    "autoload": {
-        "psr-4": {
-            "Hexlet\\Code\\": "src/"
-        }
+  "name": "hexlet/code",
+  "autoload": {
+    "psr-4": {
+      "Differ\\": "src/"
     },
-    "require": {
-        "docopt/docopt": "^1.0"
-    },
-    "bin": [
-        "bin/gendiff"
-      ]
+    "files": [
+      "src/Differ/Differ.php"
+    ]
+  },
+  "require": {
+    "docopt/docopt": "^1.0"
+  },
+  "bin": [
+    "bin/gendiff"
+  ]
 }
