@@ -13,5 +13,8 @@
   },
   "bin": [
     "bin/gendiff"
-  ]
+  ],
+  "require-dev": {
+    "squizlabs/php_codesniffer": "*"
+  }
 }

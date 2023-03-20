@@ -2,7 +2,8 @@
 
 namespace Differ\Differ;
 
-function genDiff(string $pathFile1, string $pathFile2): string {
+function genDiff(string $pathFile1, string $pathFile2): string
+{
     $content1 = file_get_contents($pathFile1);
     $content2 = file_get_contents($pathFile2);
 
@@ -44,7 +45,8 @@ function genDiff(string $pathFile1, string $pathFile2): string {
     return $result;
 }
 
-function formatRow(string $key, $value, $op = null): string {
+function formatRow(string $key, $value, $op = null): string
+{
     if (!$op) {
         $op = " ";
     }
