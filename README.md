@@ -3,4 +3,4 @@
 ###
 [![Hello-world Status](https://github.com/marmadukeone/php-project-48/workflows/hello-world.yml/badge.svg)](https://github.com/marmadukeone/php-project-48/actions)
 
-![example workflow](https://github.com/github/docs/actions/workflows/main.yml/badge.svg)
+![example workflow](https://github.com/marmadukeone/php-project-48/workflows/hello-world.yml/badge.svg)
