@@ -5,16 +5,28 @@
       "Differ\\": "src/"
     },
     "files": [
-      "src/Differ/Differ.php"
+      "src/Differ/Differ.php",
+      "tests/DifferTest.php"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Differ\\Tests\\": "tests/"
+    },
+    "files": [
+      "tests/DifferTest.php"
     ]
   },
   "require": {
-    "docopt/docopt": "^1.0"
+    "docopt/docopt": "^1.0",
+    "phpunit/phpunit": "^9.6"
   },
   "bin": [
     "bin/gendiff"
   ],
   "require-dev": {
-    "squizlabs/php_codesniffer": "*"
+    "docopt/docopt": "^1.0",
+    "squizlabs/php_codesniffer": "*",
+    "phpunit/phpunit": "^9.6"
   }
 }
