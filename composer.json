@@ -5,17 +5,14 @@
       "Differ\\": "src/"
     },
     "files": [
-      "src/Differ/Differ.php",
-      "tests/DifferTest.php"
+      "src/Differ/Differ.php"
     ]
   },
   "autoload-dev": {
     "psr-4": {
       "Differ\\Tests\\": "tests/"
-    },
-    "files": [
-      "tests/DifferTest.php"
-    ]
+    }
+    
   },
   "require": {
     "docopt/docopt": "^1.0",

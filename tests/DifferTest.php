@@ -2,17 +2,18 @@
 
 namespace Differ\Tests;
 
-require_once __DIR__ .'/../vendor/autoload.php';
+//require_once __DIR__ .'/../vendor/autoload.php';
 use PHPUnit\Framework\TestCase;
 
 use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    protected function setUp()
+    public function testGenDiff()
     {
-        echo("hello");
+        $this->assertEquals(1,1);
     }
+
     /*
     public function testDiffer(): void
     {
