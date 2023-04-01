@@ -9,9 +9,8 @@
 ![example workflow](https://github.com/marmadukeone/php-project-48/workflows/hello-world.yml/badge.svg)
 
 ## TODO
-1. Подключите линтер (должна работать команда make lint)
-2. Подключите Github Actions, Codeclimate и бейджики для них. Все эти настройки выполняются через кнопки в интерфейсе
+1. Не работает бейджик Github Actions
 3. Напишите тесты, проверяющие корректность сравнения плоских json-файлов
 4. Добавьте запуск тестов и линтера на Github Actions
-    1. Hello-world GA [V]
+    1. Hello-world GA 
 5. Настройте отправку покрытия кода на Codeclimate, добавьте в README бэйджик для Test Coverage
