@@ -9,4 +9,6 @@
 [![hello-world](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml/badge.svg?branch=main)](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml)
 
 ## TODO
-5. Настройте отправку покрытия кода на Codeclimate, добавьте в README бэйджик для Test Coverage
+1. Give to Vlad fisting
+
+##
