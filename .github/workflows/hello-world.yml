@@ -20,6 +20,7 @@ jobs:
         uses: paambaati/codeclimate-action@v4.0.0
         env: 
           CC_TEST_REPORTER_ID: ${{vars.CC_TEST_REPORTER_ID}}
+          XDEBUG_MODE: coverage
         with: 
           coverageCommand: make test
           #coverageLocations: ${{github.workspace}}/reports/clover.xml
