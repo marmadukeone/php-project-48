@@ -3,7 +3,7 @@
 namespace Differ\Parsers\Parser;
 use Symfony\Component\Yaml\Yaml;
 
-function parseFile(string $pathToFile): array
+function parseFile(string $pathToFile): ?array
 {
     
     //определяем расширение
@@ -14,8 +14,10 @@ function parseFile(string $pathToFile): array
         $content = file_get_contents($pathToFile);
         return json_decode($content, true);
     } elseif (($extension === 'yml') || ($extension === 'yaml')) {
-        return Yaml::parse($pathToFile);
+        $content = Yaml::parse($pathToFile);
+        var_dump($content);
+        return $content;
     } else {
-        return [];
+        return null;
     }
 }

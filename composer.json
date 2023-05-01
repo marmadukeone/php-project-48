@@ -5,7 +5,8 @@
       "Differ\\": "src/"
     },
     "files": [
-      "src/Differ/Differ.php"
+      "src/Differ/Differ.php",
+      "src/Differ/Parsers/Parser.php"
     ]
   },
   "autoload-dev": {
