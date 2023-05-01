@@ -1,18 +1,20 @@
 <?php
 
 namespace Differ\Parsers\Parser;
+use Symfony\Component\Yaml\Yaml;
 
 function parseFile(string $pathToFile): array
 {
-    $content = file_get_contents($pathToFile);
+    
     //определяем расширение
     $pathParts = pathinfo($pathToFile);
     $extension = $pathParts['extension'];
     //выбираем исходя из расширения файла как парсить в ассоциативный массив
     if ($extension === 'json') {
+        $content = file_get_contents($pathToFile);
         return json_decode($content, true);
     } elseif (($extension === 'yml') || ($extension === 'yaml')) {
-        return [];
+        return Yaml::parse($pathToFile);
     } else {
         return [];
     }

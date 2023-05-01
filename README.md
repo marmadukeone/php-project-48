@@ -8,11 +8,11 @@
 ### Bagde for GA 
 [![hello-world](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml/badge.svg?branch=main)](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml)
 
+## TROUBLES
+1. Парсинг ямл return Yaml::parse($pathToFile); сделал так, а в теории написано Yaml::PARSE_OBJECT_FOR_MAP - надо ли?
+2. Проблема юнит не видит функцию парсера теперь
 ## TODO
-1. Парсинг ямл - проверка формата файла и дальше без изменений
 2. Тест под ямл - отдельная функция - ту переименовать
-3. Вынести логику декодирования в отдельный хуйню
-4. Делаю папку = в ней парсер пхп - вызов в гендиффе.
 5. В редми примеры с джосоном и ямл как описание - команды с готовыми фикстурами для проверки
 
 ##
