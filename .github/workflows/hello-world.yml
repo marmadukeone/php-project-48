@@ -14,5 +14,13 @@ jobs:
       # run – произвольная bash-команда
       # ls -la выведет содержимое текущего репозитория
       - run: make install
-      - run: make test
+      # run: make test
       - run: make lint
+      - name: test and publish code coverage
+        uses: paambaati/codeclimate-action@v4.0.0
+        env: 
+          CC_TEST_REPORTER_ID: ${{vars.CC_TEST_REPORTER_ID}}
+        with: 
+          coverageCommand: make test
+          coverageLocations: ${{github.workspace}}/reports/clover.xml
+          debug: true

@@ -24,6 +24,7 @@
   "require-dev": {
     "docopt/docopt": "^1.0",
     "squizlabs/php_codesniffer": "*",
-    "phpunit/phpunit": "^9.6"
+    "phpunit/phpunit": "^9.6",
+    "phpunit/php-code-coverage": "9.2.26"
   }
 }
