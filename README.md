@@ -9,6 +9,6 @@
 [![hello-world](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml/badge.svg?branch=main)](https://github.com/marmadukeone/php-project-48/actions/workflows/hello-world.yml)
 
 ## TODO
-1. Give to Vlad fisting
+1. Give to Vlad fisting call him
 
 ##
