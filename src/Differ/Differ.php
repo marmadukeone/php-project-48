@@ -1,27 +1,25 @@
 <?php
 
 namespace Differ\Differ;
+use function Differ\Parsers\Parser\parseFile;
 
 function genDiff(string $pathFile1, string $pathFile2): string
 {
-    $content1 = file_get_contents($pathFile1);
-    $content2 = file_get_contents($pathFile2);
-
-    $json1 = json_decode($content1, true);
-    $json2 = json_decode($content2, true);
-
+    $array1 = parseFile($pathFile1);
+    $array2 = parseFile($pathFile2);
+    //тут уже обработка по ассоциативному массиву 
     $result = "{\n";
 
-    $keys_in_json1 = [];
-    foreach ($json1 as $key => $value) {
-        $keys_in_json1[] = $key;
+    $keys_in_array1 = [];
+    foreach ($array1 as $key => $value) {
+        $keys_in_array1[] = $key;
         $output = '';
-        if (isset($json2[$key])) {
-            if ($value === $json2[$key]) {
+        if (isset($array2[$key])) {
+            if ($value === $array2[$key]) {
                 $output = formatRow($key, $value);
             } else {
                 $output = formatRow($key, $value, "-");
-                $output .= formatRow($key, $json2[$key], "+");
+                $output .= formatRow($key, $array2[$key], "+");
             }
         } else {
             $output = formatRow($key, $value, "-");
@@ -32,8 +30,8 @@ function genDiff(string $pathFile1, string $pathFile2): string
         }
     }
 
-    foreach ($json2 as $key => $value) {
-        if (in_array($key, $keys_in_json1, true)) {
+    foreach ($array2 as $key => $value) {
+        if (in_array($key, $keys_in_array1, true)) {
             continue;
         }
 
