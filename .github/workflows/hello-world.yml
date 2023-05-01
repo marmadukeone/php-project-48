@@ -22,5 +22,5 @@ jobs:
           CC_TEST_REPORTER_ID: ${{vars.CC_TEST_REPORTER_ID}}
         with: 
           coverageCommand: make test
-          coverageLocations: ${{github.workspace}}/reports/clover.xml
+          #coverageLocations: ${{github.workspace}}/reports/clover.xml
           debug: true
