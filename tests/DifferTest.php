@@ -31,8 +31,8 @@ class DifferTest extends TestCase
     }
     public function testGenDiffYaml()
     {
-        $pathToFixturesFile1 = __DIR__. "/fixtures/yaml1.yml";
-        $pathToFixturesFile2 = __DIR__. "/fixtures/yaml2.yml";
+        $pathToFixturesFile1 = __DIR__. "/fixtures/yaml1.yaml";
+        $pathToFixturesFile2 = __DIR__. "/fixtures/yaml2.yaml";
         $pathToTrueResult = __DIR__. "/fixtures/result1";
         $resultGendiff = genDiff($pathToFixturesFile1, $pathToFixturesFile2);
         $resultTrue = file_get_contents($pathToTrueResult);
