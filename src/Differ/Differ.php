@@ -1,15 +1,15 @@
 <?php
 
 namespace Differ\Differ;
+
 use function Differ\Parsers\Parser\parseFile;
 
 function genDiff(string $pathFile1, string $pathFile2): string
 {
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
-    //тут уже обработка по ассоциативному массиву 
+    //тут уже обработка по ассоциативному массиву
     $result = "{\n";
-
     $keys_in_array1 = [];
     foreach ($array1 as $key => $value) {
         $keys_in_array1[] = $key;
@@ -29,7 +29,6 @@ function genDiff(string $pathFile1, string $pathFile2): string
             $result .= $output;
         }
     }
-
     foreach ($array2 as $key => $value) {
         if (in_array($key, $keys_in_array1, true)) {
             continue;
@@ -37,8 +36,6 @@ function genDiff(string $pathFile1, string $pathFile2): string
 
         $result .= formatRow($key, $value, "+");
     }
-
-
     $result .= "}";
     return $result;
 }

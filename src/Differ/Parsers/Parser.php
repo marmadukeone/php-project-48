@@ -1,11 +1,11 @@
 <?php
 
 namespace Differ\Parsers\Parser;
+
 use Symfony\Component\Yaml\Yaml;
 
 function parseFile(string $pathToFile): ?array
 {
-    
     //определяем расширение
     $pathParts = pathinfo($pathToFile);
     $extension = $pathParts['extension'];
