@@ -12,7 +12,7 @@ function parseFile(string $pathToFile): ?array
     //выбираем исходя из расширения файла как парсить в ассоциативный массив
     if ($extension === 'json') {
         $content = file_get_contents($pathToFile);
-        var_dump(json_decode($content, true));
+        //var_dump(json_decode($content, true));
         return json_decode($content, true);
     } elseif (($extension === 'yml') || ($extension === 'yaml')) {
        // var_dump("KUKU");
