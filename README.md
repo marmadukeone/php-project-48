@@ -21,7 +21,7 @@
 This module will help you to read YAML/YML/JSON and get associative array with content.
 Module have only 1 function - parse, which is get a path to file and get result as array
 
-**🔍 If function can't support extension of file it will output null **
+🔍 **If function can't support extension of file it will output null**
 
 ### Example of using
 
