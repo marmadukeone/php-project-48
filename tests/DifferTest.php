@@ -10,7 +10,7 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    /*    public function testGenDiffJson()
+       public function testGenDiffJson()
     {
         $pathToFixturesFile1 = __DIR__. "/fixtures/file1.json";
         $pathToFixturesFile2 = __DIR__. "/fixtures/file2.json";
@@ -20,6 +20,7 @@ class DifferTest extends TestCase
         $this->assertEquals($resultGendiff,$resultTrue);
 
     }
+    /*
     public function testGenDiffYml()
     {
         $pathToFixturesFile1 = __DIR__. "/fixtures/yml1.yml";

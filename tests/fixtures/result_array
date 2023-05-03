@@ -1,30 +1,4 @@
-#!/usr/bin/env php
-<?PHP
-require_once __DIR__ .'/../vendor/autoload.php';
-
-use function Differ\Differ\genDiff;
-use function Differ\Differ\transformToString;
-
-
-$doc = <<<DOC
-
-Usage:
-  gendiff (-h|--help)
-  gendiff (-v|--version)
-  gendiff [--format <fmt>] <firstFile> <secondFile>
-
-Options:
-  -h --help                     Show this screen
-  -v --version                  Show version
-  --format <fmt>                Report format [default: stylish]
-DOC;
-
-// $response = Docopt::handle($doc, [
-//   'version'=> 'Naval Fate 2.0',
-// ]);
-
-// $args = $response->args;
-// //echo genDiff($args['<firstFile>'], $args['<secondFile>']);
+<?php
 
 $result = [
   "common" => [
@@ -65,4 +39,23 @@ $result = [
       ]
   ]
 ];
-echo transformToString($result);
+
+
+[
+    'sanya' => [
+        'age' => [
+            'value' => [
+                'old' => null,
+                'new' => [
+                    'value' => 65
+                ]]],
+        'fio' => [
+                value => [
+                    'old' => [value => 'Alex'],
+                    'new' => [value => 'Vlad']
+                ]
+            ]
+        ]
+
+    ]
+]
