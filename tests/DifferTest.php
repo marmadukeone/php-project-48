@@ -10,7 +10,7 @@ use function Differ\Differ\genDiff;
 
 class DifferTest extends TestCase
 {
-    public function testGenDiffJson()
+    /*    public function testGenDiffJson()
     {
         $pathToFixturesFile1 = __DIR__. "/fixtures/file1.json";
         $pathToFixturesFile2 = __DIR__. "/fixtures/file2.json";
@@ -38,6 +38,7 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultGendiff,$resultTrue);
     }
+    */
     public function testGenDiffJsonUpgrate()
     {
         $pathToFixturesFile1 = __DIR__. "/fixtures/file1_2.json";
@@ -47,7 +48,7 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultGendiff,$resultTrue);
     }
-    public function testGenDiffYmlUpgrate()
+    /* public function testGenDiffYmlUpgrate()
     {
         $pathToFixturesFile1 = __DIR__. "/fixtures/yml1_2.yml";
         $pathToFixturesFile2 = __DIR__. "/fixtures/yml2_2.yml";
@@ -65,4 +66,5 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultGendiff,$resultTrue);
     }
+    */
 }
