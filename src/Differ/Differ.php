@@ -11,12 +11,12 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array2 = parseFile($pathFile2);
     //тут уже обработка по ассоциативному массиву
     $commonArray = transformToCommonArray($array1, $array2);
-    $result = transformToString($commonArray);
-    //$result = transformToString($array1, $array2);
-
-    // $result = $result[0];
     var_dump("YAAAAAAA");
-    var_dump($commonArray);
+    print_r($commonArray);
+    $result = transformToString($commonArray);
+
+    // return [];
+
     return $result;
 }
 
@@ -29,7 +29,7 @@ function transformToCommonArray(array $arr1, array $arr2): array
             if (is_array($value) && is_array($arr2[$key])) {
                 //вложенные
                 $temp = transformToCommonArray($value, $arr2[$key]);
-                var_dump("TEMP::", $temp);
+                //var_dump("TEMP::", $temp);
                 if (!empty($temp)) {
                     $result[$key]['value'] = $temp;
                 }
@@ -48,7 +48,7 @@ function transformToCommonArray(array $arr1, array $arr2): array
         } else {
             //нету во втором
             $result[$key]['value']['old']['value'] = $value;
-            $result[$key]['value']['new'] = (bool) null;
+            $result[$key]['value']['new'] =  null;
         }
     }
     foreach ($arr2 as $key => $value) {
@@ -71,13 +71,14 @@ function transformToString($arr, $depht = 1): string
 
     $spacesWithoutOperator = $spacesWithOperator . str_repeat(" ", 2); // "+ " = 2 symbols
     $result = "{\n";
-    var_dump(is_array($arr));
+    //var_dump(is_array($arr));
 
     foreach ($arr as $key => $value) {
         var_dump("KEY:::", $key);
         var_dump("VALUE IS ARRAY?", is_array($value));
-        var_dump($value);
+        //var_dump($value);
         if (!is_array($value)) {
+            var_dump("TYT");
             $result .= $spacesWithoutOperator . formatRow($key, $value);
             continue;
         } else {
@@ -91,7 +92,13 @@ function transformToString($arr, $depht = 1): string
                     $result .= $spacesWithoutOperator . "}\n";
                 } else {
                     var_dump("2");
-                    $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
+                    if(is_null($value)) {
+                        var_dump("DA YA EMPTY");
+                    } else{
+                        var_dump("YA NE EMPTY");
+                        $result .= $spacesWithOperator . formatRow($key, $value['value'], "??");
+                    }
+                    
                 }
                 continue;
             } else {
