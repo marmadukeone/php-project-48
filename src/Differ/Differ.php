@@ -36,11 +36,11 @@ function transformToCommonArray(array $arr1, array $arr2): array
             } else {
                 if ($value !== $arr2[$key]) {
                     //значения не совпадают
-                    $result[$key]['value']['old']['value'] = $value;
-                    $result[$key]['value']['new']['value'] = $arr2[$key];
+                    $result[$key]['old']['value'] = $value;
+                    $result[$key]['new']['value'] = $arr2[$key];
                 } else {
                     //совпадают - простовалию
-                    $result[$key]['value']['value'] = $value;
+                    $result[$key]['value'] = $value;
                 }
             }
             //ну что как на это отреагирует влад?
@@ -48,13 +48,13 @@ function transformToCommonArray(array $arr1, array $arr2): array
         } else {
             //нету во втором
             $result[$key]['value']['old']['value'] = $value;
-            $result[$key]['value']['new'] = null;
+            $result[$key]['value']['new'] = (bool) null;
         }
     }
     foreach ($arr2 as $key => $value) {
         //нету в первом
-        $result[$key]['value']['old'] = null;
-        $result[$key]['value']['new']['value'] = $value;
+        $result[$key]['old'] = null;
+        $result[$key]['new']['value'] = $value;
     }
     return $result;
 }
@@ -71,41 +71,70 @@ function transformToString($arr, $depht = 1): string
 
     $spacesWithoutOperator = $spacesWithOperator . str_repeat(" ", 2); // "+ " = 2 symbols
     $result = "{\n";
-    foreach ($arr as $key => $value) {
-        if (array_key_exists('value', $value)) {
-            if (is_array($value['value'])) {
-                $result .= "{$spacesWithoutOperator}{$key}: ";
-                $result .= transformToString($value['value'], $nextDepht);
-                $result .= $spacesWithoutOperator . "}\n";
-            } else {
-                $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
-            }
-            continue;
-        }
+    var_dump(is_array($arr));
 
+    foreach ($arr as $key => $value) {
+        var_dump("KEY:::", $key);
+        var_dump("VALUE IS ARRAY?", is_array($value));
+        var_dump($value);
+        if (!is_array($value)) {
+            $result .= $spacesWithoutOperator . formatRow($key, $value);
+            continue;
+        } else {
+            if (array_key_exists('value', $value)) {
+                var_dump("0");
+
+                if (is_array($value['value'])) {
+                    var_dump("1");
+                    $result .= "{$spacesWithoutOperator}{$key}: ";
+                    $result .= transformToString($value['value'], $nextDepht);
+                    $result .= $spacesWithoutOperator . "}\n";
+                } else {
+                    var_dump("2");
+                    $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
+                }
+                continue;
+            } else {
+                var_dump("NO KEY VALUE");
+                // var_dump("HUI");
+                // var_dump($value['old']);
+                // var_dump(is_null($value['old']));
+                // var_dump("HUI2");
+                // var_dump($value['old'] == null);
+                //continue;
+            }
+        }
+        var_dump($value['old'] == null);
         if (is_null($value['old'])) {
+            var_dump("3");
             if (is_array($value['new']['value'])) {
+                var_dump("4");
                 $result .= "{$spacesWithOperator}+ {$key}: ";
                 $result .= transformToString($value['new']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
+                var_dump("5");
                 $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
             }
             continue;
         }
 
         if (is_null($value['new'])) {
+            var_dump("6");
             if (is_array($value['old']['value'])) {
+                var_dump("7");
                 $result .= "{$spacesWithOperator}- {$key}: ";
                 $result .= transformToString($value['old']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
+                var_dump("8");
                 $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
             }
             continue;
         }
 
         if (!is_null($value['old'] && !is_null($value['new']))) {
+            var_dump("9");
             $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
             $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
             continue;
