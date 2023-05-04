@@ -10,7 +10,7 @@ function genDiff(string $pathFile1, string $pathFile2): string
     $array2 = parseFile($pathFile2);
     //тут уже обработка по ассоциативному массиву
     var_dump("START");
-    $result = compareJsonArrays($array1, $array2);
+    $result = transformToString($array1, $array2);
     var_dump("END -- THIS RESULT:");
     $result = $result[0];
     var_dump($result);
@@ -22,80 +22,49 @@ function genDiff(string $pathFile1, string $pathFile2): string
 
 function transformToString($arr, $depht = 1):string
 {
-    $result = "{ \n";
+    $countSpace = str_repeat(" ", $depht);
+    $spaceCommon = " ";
+    $result .= "{\n";
     foreach ($arr as $key => $value) {
-        var_dump("KEY: ", $key);
-        //var_dump($key, $depht);
         if(array_key_exists('value', $value)) {
-            //он есть
-            var_dump('1');
-            //var_dump("THIS IS value: ", $value['value']);
             if(is_array($value['value'])) {
-                var_dump('2');
-                //var_dump('YA ARRAY:');
-                $result .= "{$key}: ";
-                //var_dump("zapisal key1:", $key);
+                $result .= "{$countSpace}{$spaceCommon}{$key}: ";
                 $result .= transformToString($value['value'], $depht+1);
             } else {
-                var_dump('3');
                 $result .= formatRow($key, $value['value'], $depht * 2);
             }
             continue;
         } 
         if (is_null($value['old'])) {
-            var_dump('4');
             if (is_array($value['new']['value'])) {
-                var_dump('5');
-                $result .= formatRow($key, ' ', $depht+2, "-");
+                $result .= "{$countSpace}  + {$key}: ";
                 $result .= transformToString($value['new']['value'], $depht+1);
             } else {
-                var_dump('6');
-                //var_dump("zapisal key22:", $key);
-                //$result .= "{$key}: ";
-                $result .= formatRow($key,$value['new']['value'], $depht * 2, "+");
+                $result .= formatRow($key, $value['new']['value'], $depht * 2, "+");
             }
             continue;
-        }
-
-        
+        } 
         if (is_null($value['new'])) {
-            var_dump('7');
             if (is_array($value['old']['value'])) {
-                var_dump('8');
-                var_dump("zapisal key3:", $key);
-                $result .= "{$key}: ";
+                $result .= "{$countSpace}{$spaceCommon}{$key}: ";
                 $result .= transformToString($value['old']['value'], $depht+1);              
             } else {
-                var_dump('9');
-                $result .= formatRow($key,$value['old']['value'], $depht * 2, "-");
+                $result .= formatRow($key, $value['old']['value'], $depht * 2, "-");
             }
             continue;
+        } 
+        if (!is_null($value['old'] && !is_null($value['new']))) {
+            $result .= formatRow($key, $value['old']['value'], $depht * 2, "-");
+            $result .= formatRow($key, $value['new']['value'], $depht * 2, "+");
         }
-
-        
-        
-        
-        
-        /*
-        if (is_array($value['old']['value'])) {
-            $result .= "{$key}: ";
-            $result .= transformToString($value['old']['value'], $depht+1);
-            continue;
-        } else {
-            $result .= formatRow($key,$value['old']['value'], $depht * 2, "-");
-            continue;
-        }
-        if (is_array($value['new']['value'])) {
-            $result .= "{$key}: ";
-            $result .= transformToString($value['new']['value'], $depht+1);
-            continue;
-        } else {  
-            $result .= formatRow($key,$value['new']['value'], $depht * 2, "+");
-            continue;
-        }
-        */        
     }
-    $result .= "}\n";
+    if ($depht === 1) {
+        $result .= "}\n";
+    } else {
+        $result .= "{$countSpace}{$spaceCommon}}\n";
+    }
+
+    
     return $result;
 }
 
