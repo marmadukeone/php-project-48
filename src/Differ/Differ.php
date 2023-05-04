@@ -17,58 +17,64 @@ function genDiff(string $pathFile1, string $pathFile2): string
     return $result;
 }
 
-
-
-
 function transformToString($arr, $depht = 1):string
 {
-    $countSpace = str_repeat(" ", $depht);
-    $spaceCommon = " ";
-    $result .= "{\n";
+    $nextDepht = $depht + 3;
+    $spacesWithOperator = str_repeat(" ", $depht);
+    // uncomment for debug depht:
+    // $debugDephtStr = $depht % 10;
+    // $spacesWithOperator = str_repeat($debugDephtStr, $depht);
+    
+    $spacesWithoutOperator = $spacesWithOperator . str_repeat(" ", 2); // "+ " = 2 symbols
+    $result = "{\n";
     foreach ($arr as $key => $value) {
         if(array_key_exists('value', $value)) {
             if(is_array($value['value'])) {
-                $result .= "{$countSpace}{$spaceCommon}{$key}: ";
-                $result .= transformToString($value['value'], $depht+1);
+                $result .= "{$spacesWithoutOperator}{$key}: ";
+                $result .= transformToString($value['value'], $nextDepht);
+                $result .= $spacesWithoutOperator . "}\n";
             } else {
-                $result .= formatRow($key, $value['value'], $depht * 2);
+                $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
             }
             continue;
-        } 
+        }
+
         if (is_null($value['old'])) {
             if (is_array($value['new']['value'])) {
-                $result .= "{$countSpace}  + {$key}: ";
-                $result .= transformToString($value['new']['value'], $depht+1);
+                $result .= "{$spacesWithOperator}+ {$key}: ";
+                $result .= transformToString($value['new']['value'], $nextDepht);
+                $result .= $spacesWithoutOperator . "}\n";
             } else {
-                $result .= formatRow($key, $value['new']['value'], $depht * 2, "+");
+                $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
             }
             continue;
         } 
+
         if (is_null($value['new'])) {
             if (is_array($value['old']['value'])) {
-                $result .= "{$countSpace}{$spaceCommon}{$key}: ";
-                $result .= transformToString($value['old']['value'], $depht+1);              
+                $result .= "{$spacesWithOperator}- {$key}: ";
+                $result .= transformToString($value['old']['value'], $nextDepht);     
+                $result .= $spacesWithoutOperator . "}\n";
             } else {
-                $result .= formatRow($key, $value['old']['value'], $depht * 2, "-");
+                $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
             }
             continue;
-        } 
+        }
+
         if (!is_null($value['old'] && !is_null($value['new']))) {
-            $result .= formatRow($key, $value['old']['value'], $depht * 2, "-");
-            $result .= formatRow($key, $value['new']['value'], $depht * 2, "+");
+            $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
+            $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
+            continue;
         }
     }
     if ($depht === 1) {
         $result .= "}\n";
-    } else {
-        $result .= "{$countSpace}{$spaceCommon}}\n";
     }
-
     
     return $result;
 }
 
-function formatRow($key, $value, $countSpace, $operand = null)
+function formatRow($key, $value, $operand = null)
 {
     if (is_null($value)) {
         $value = 'null';
@@ -79,8 +85,9 @@ function formatRow($key, $value, $countSpace, $operand = null)
     if ($value === false) {
         $value = 'false';
     }
-    $result = str_repeat(" ", $countSpace);
-    $operand = $operand ? $operand : " ";
-    $result .= "{$operand} {$key}: {$value}\n";
+    $result = $key . ": " . $value . "\n";
+    if ($operand) {
+        $result = $operand . " " . $result;
+    }
     return $result;
 }
