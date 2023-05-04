@@ -4,116 +4,26 @@ require_once __DIR__ . '/../vendor/autoload.php';
 
 use function Differ\Differ\genDiff;
 use function Differ\Differ\transformToString;
+use function Differ\Parsers\Parser\parseFile;
 
+// $doc = <<<DOC
 
-$doc = <<<DOC
+// Usage:
+//   gendiff (-h|--help)
+//   gendiff (-v|--version)
+//   gendiff [--format <fmt>] <firstFile> <secondFile>
 
-Usage:
-  gendiff (-h|--help)
-  gendiff (-v|--version)
-  gendiff [--format <fmt>] <firstFile> <secondFile>
-
-Options:
-  -h --help                     Show this screen
-  -v --version                  Show version
-  --format <fmt>                Report format [default: stylish]
-DOC;
+// Options:
+//   -h --help                     Show this screen
+//   -v --version                  Show version
+//   --format <fmt>                Report format [default: stylish]
+// DOC;
 
 // $response = Docopt::handle($doc, [
 //   'version'=> 'Naval Fate 2.0',
 // ]);
 
-// $args = $response->args;
-// //echo genDiff($args['<firstFile>'], $args['<secondFile>']);
+//  $args = $response->args;
+// echo genDiff($args['<firstFile>'], $args['<secondFile>']);
 
-$result = [
-    "testkey" => [
-        "old" => null,
-        "new" => [
-            "value" => "AAA"
-        ]
-    ],
-    "common" => [
-        "value" => [
-            "follow" => [
-                "old" => null,
-                "new" => [
-                    "value" => false
-                ]
-            ],
-            "setting1" => [
-                "value" => "value 1"
-            ],
-            "setting2" => [
-                "old" => [
-                    "value" => 200
-                ],
-                "new" => null,
-            ],
-            "setting3" => [
-                "old" => [
-                    "value" => true
-                ],
-                "new" => [
-                    "value" => null
-                ]
-            ],
-            "setting5" => [
-                "old" => null,
-                "new" => [
-                    "value" => [
-                        "key5" => [
-                            "value" => 5,
-                        ],
-                        "key6" => [
-                            "old" => [
-                                "value" => true
-                            ],
-                            "new" => [
-                                "value" => false
-                            ]
-                        ],
-                        "key7" => [
-                            "value" => [
-                                "ooo" => [
-                                    "value" => 1,
-                                ],
-                                "aaa" => [
-                                    "old" => [
-                                        "value" => true
-                                    ],
-                                    "new" => null,
-                                ],
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            "setting7" => [
-                "old" => [
-                    "value" => [
-                        "testkeyu" => [
-                            "value" => 1,
-                        ],
-                        "testkeyi" => [
-                            "new" => [
-                                "value" => 1
-                            ],
-                            "old" => [
-                                "value" => 2,
-                            ],
-                        ]
-                    ],
-                ],
-                "new" => null,
-            ]
-        ]
-    ],
-    "testkey2" => [
-        "old" => [
-            "value" => 1
-        ],
-        "new" => null,
-    ],
-];
-echo transformToString($result);
+print_r(genDiff("./tests/fixtures/file1_2.json", "./tests/fixtures/file2_2.json"));

@@ -1,6 +1,4 @@
-<?php
-
-$result = [
+[
   "common" => [
       "value" => [
           "follow" => [
@@ -31,7 +29,7 @@ $result = [
               "new" => [
                   "value" => [
                       "key5" => [
-                          "value" => 5,
+                          "value" => "value5",
                       ]
                   ]
               ]
@@ -39,36 +37,3 @@ $result = [
       ]
   ]
 ];
-
-
-[
-    'sanya' => [
-        'age' => [
-            'value' => [
-                'old' => null,
-                'new' => [
-                    'value' => 65
-                ]]],
-        'fio' => [
-                value => [
-                    'old' => [value => 'Alex'],
-                    'new' => [value => 'Vlad']
-                ]
-            ]
-        ]
-
-    ]
-]
-
-{
-    common: {
-       + follow: false
-         setting1: value 1
-       - setting2: 200
-       - setting3: true
-       + setting3: null
-       + setting5: {
-           key5: 5
-        }
-       }
- }
