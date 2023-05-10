@@ -15,6 +15,11 @@ function genDiff(string $pathFile1, string $pathFile2)
 
 function transformToCommonArray(array $arr1, array $arr2): array
 {
+    /*
+        Тут просто записываешь в old->value, new->value или просто value какие-то значение явно. Но фактически,
+        эти значения нужно обработать так же через эту же функцию (transformToCommonArray), то есть вызвать рекурсивно. 
+        Нужно это делать для того, чтобы обрабатывать правильно вложенные массивы.
+    */
     $result = [];
     foreach ($arr1 as $key => $value) {
         if (array_key_exists($key, $arr2)) {
@@ -40,7 +45,7 @@ function transformToCommonArray(array $arr1, array $arr2): array
         } else {
             //нету во втором
             $result[$key]['old']['value'] = $value;
-            $result[$key]['new'] =  null;
+            $result[$key]['new'] = null;
         }
     }
     foreach ($arr2 as $key => $value) {
@@ -65,16 +70,13 @@ function transformToString($arr, $depht = 1): string
     $result = "{\n";
 
     foreach ($arr as $key => $value) {
-        if (!is_array($value)) {
-            $result .= $spacesWithoutOperator . formatRow($key, $value);
-            continue;
-        }
-
         if (array_key_exists('value', $value)) {
             if (is_array($value['value'])) {
                 $result .= "{$spacesWithoutOperator}{$key}: ";
                 $result .= transformToString($value['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
+            } else {
+                $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
             }
             continue;
         }
