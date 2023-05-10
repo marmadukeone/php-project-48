@@ -1,5 +1,8 @@
 {
-  "common": {
-    "setting2": 200
+  "group2": {
+    "abc": 12345,
+    "deep": {
+      "id": 45
+    }
   }
 }

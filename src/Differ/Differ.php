@@ -6,7 +6,6 @@ use function Differ\Parsers\Parser\parseFile;
 
 function genDiff(string $pathFile1, string $pathFile2)
 {
-
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
@@ -40,8 +39,8 @@ function transformToCommonArray(array $arr1, array $arr2): array
             unset($arr2[$key]);
         } else {
             //нету во втором
-            $result[$key]['value']['old']['value'] = $value;
-            $result[$key]['value']['new'] =  null;
+            $result[$key]['old']['value'] = $value;
+            $result[$key]['new'] =  null;
         }
     }
     foreach ($arr2 as $key => $value) {
@@ -69,23 +68,17 @@ function transformToString($arr, $depht = 1): string
         if (!is_array($value)) {
             $result .= $spacesWithoutOperator . formatRow($key, $value);
             continue;
-        } else {
-            if (array_key_exists('value', $value)) {
-                if (is_array($value['value'])) {
-                    $result .= "{$spacesWithoutOperator}{$key}: ";
-                    $result .= transformToString($value['value'], $nextDepht);
-                    $result .= $spacesWithoutOperator . "}\n";
-                } else {
-                    if(is_null($value)) {
-                    } else{
-                        $result .= $spacesWithOperator . formatRow($key, $value['value'], "??");
-                    }
-                    
-                }
-                continue;
-            } else {
-            }
         }
+
+        if (array_key_exists('value', $value)) {
+            if (is_array($value['value'])) {
+                $result .= "{$spacesWithoutOperator}{$key}: ";
+                $result .= transformToString($value['value'], $nextDepht);
+                $result .= $spacesWithoutOperator . "}\n";
+            }
+            continue;
+        }
+
         if (is_null($value['old'])) {
             if (is_array($value['new']['value'])) {
                 $result .= "{$spacesWithOperator}+ {$key}: ";
