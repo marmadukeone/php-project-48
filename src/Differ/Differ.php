@@ -9,6 +9,8 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
+    print_r($commonArray);
+    return [];
     $result = transformToString($commonArray);
     return $result;
 }
@@ -16,9 +18,9 @@ function genDiff(string $pathFile1, string $pathFile2)
 function transformToCommonArray(array $arr1, array $arr2): array
 {
     /*
-        Тут просто записываешь в old->value, new->value или просто value какие-то значение явно. Но фактически,
-        эти значения нужно обработать так же через эту же функцию (transformToCommonArray), то есть вызвать рекурсивно. 
-        Нужно это делать для того, чтобы обрабатывать правильно вложенные массивы.
+    Тут просто записываешь в old->value, new->value или просто value какие-то значение явно. Но фактически,
+    эти значения нужно обработать так же через эту же функцию (transformToCommonArray), то есть вызвать рекурсивно. 
+    Нужно это делать для того, чтобы обрабатывать правильно вложенные массивы.
     */
     $result = [];
     foreach ($arr1 as $key => $value) {
@@ -27,12 +29,27 @@ function transformToCommonArray(array $arr1, array $arr2): array
             if (is_array($value) && is_array($arr2[$key])) {
                 //вложенные
                 $temp = transformToCommonArray($value, $arr2[$key]);
+                var_dump("1");
+                print_r($temp);
                 if (!empty($temp)) {
                     $result[$key]['value'] = $temp;
                 }
-            } else {
+            }
+            if (is_array($value) && !is_array($arr2[$key])) {
+                //если первый массив, а второй не массив
+                var_dump("1");
+
+            }
+            if (!is_array($value) && is_array($arr2[$key])) {
+                var_dump("2");
+            }
+
+            //старое если
+            if (!is_array($value) && !is_array($arr2[$key])) {
+                //если не оба массивы - просто сравниваем значение
                 if ($value !== $arr2[$key]) {
                     //значения не совпадают
+
                     $result[$key]['old']['value'] = $value;
                     $result[$key]['new']['value'] = $arr2[$key];
                 } else {
@@ -44,14 +61,29 @@ function transformToCommonArray(array $arr1, array $arr2): array
             unset($arr2[$key]);
         } else {
             //нету во втором
-            $result[$key]['old']['value'] = $value;
-            $result[$key]['new'] = null;
+            if (is_array($value)) {
+                var_dump("ARRAY old");
+                $result[$key]['old']['value'] = transformToCommonArray($value, []);
+                $result[$key]['new'] = null;
+
+            } else {
+                $result[$key]['old']['value'] = $value;
+                $result[$key]['new'] = null;
+            }
         }
     }
     foreach ($arr2 as $key => $value) {
         //нету в первом
-        $result[$key]['old'] = null;
-        $result[$key]['new']['value'] = $value;
+        if (is_array($value)) {
+            var_dump("ARRAY new");
+            $result[$key]['old'] = null;
+            $result[$key]['new']['value'] = transformToCommonArray($value, []);
+
+        } else {
+            $result[$key]['old'] = null;
+            $result[$key]['new']['value'] = $value;
+        }
+
     }
     return $result;
 }
