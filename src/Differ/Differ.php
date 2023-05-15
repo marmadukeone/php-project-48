@@ -9,8 +9,8 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
-    print_r($commonArray);
-    return [];
+    ///print_r($commonArray);
+    //return [];
     $result = transformToString($commonArray);
     return $result;
 }
@@ -38,10 +38,14 @@ function transformToCommonArray(array $arr1, array $arr2): array
             if (is_array($value) && !is_array($arr2[$key])) {
                 //если первый массив, а второй не массив
                 //var_dump("11");
+                $result[$key]['old']['value'] = transformToCommonArray($value, []);
+                $result[$key]['new']['value'] = $arr2[$key];
 
             }
             if (!is_array($value) && is_array($arr2[$key])) {
                 //var_dump("2");
+                //$result[$key]['old']['value'] = transformToCommonArray($value, []);
+                //$result[$key]['new']['value'] = $arr2[$key];
             }
 
             //старое если
@@ -69,7 +73,12 @@ function transformToCommonArray(array $arr1, array $arr2): array
                     $result[$key]['old']['value'] = transformToCommonArray($value, []);
                 }
             } else {
-                $result[$key]['value'] = $value;
+                if (empty($arr2)) {
+                    $result[$key]['value'] = $value;
+                } else {
+                    $result[$key]['old']['value'] = $value;
+                }
+
                 //$result[$key]['new'] = null;
             }
         }
@@ -78,15 +87,25 @@ function transformToCommonArray(array $arr1, array $arr2): array
         //нету в первом
         if (is_array($value)) {
             //var_dump("ARRAY new");
-            $result[$key]['old'] = null;
-            $result[$key]['new']['value'] = transformToCommonArray($value, []);
+            //$result[$key]['old'] = null;
+            if (empty($arr1)) {
+                $result[$key]['value'] = transformToCommonArray([], $value);
+            } else {
+                $result[$key]['new']['value'] = transformToCommonArray([], $value);
+            }
 
         } else {
             //$result[$key]['old'] = null;
-            $result[$key]['value'] = $value;
+            if (empty($arr1)) {
+                $result[$key]['value'] = $value;
+            } else {
+                $result[$key]['new']['value'] = $value;
+            }
+
         }
 
     }
+    ksort($result);
     return $result;
 }
 
@@ -104,12 +123,14 @@ function transformToString($arr, $depht = 1): string
     $result = "{\n";
 
     foreach ($arr as $key => $value) {
+        //var_dump("KEY:", $key);
         if (array_key_exists('value', $value)) {
             if (is_array($value['value'])) {
                 $result .= "{$spacesWithoutOperator}{$key}: ";
                 $result .= transformToString($value['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
+                //var_dump("KYKY");
                 $result .= $spacesWithoutOperator . formatRow($key, $value['value']);
             }
             continue;
@@ -128,6 +149,7 @@ function transformToString($arr, $depht = 1): string
 
         if (is_null($value['new'])) {
             if (is_array($value['old']['value'])) {
+                //var_dump("PEDIK");
                 $result .= "{$spacesWithOperator}- {$key}: ";
                 $result .= transformToString($value['old']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
@@ -138,8 +160,29 @@ function transformToString($arr, $depht = 1): string
         }
 
         if (!is_null($value['old'] && !is_null($value['new']))) {
-            $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
-            $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
+            if (is_array($value['old']['value'])) {
+                //old array
+                //var_dump("VLAD-PEDIK da");
+                $result .= "{$spacesWithOperator}- {$key}: ";
+                $result .= transformToString($value['old']['value'], $nextDepht);
+                $result .= $spacesWithoutOperator . "}\n";
+            } else {
+                $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
+                
+
+            }
+            if (is_array($value['new']['value'])) {
+                //var_dump("PIDRAS");
+                $result .= "{$spacesWithOperator}- {$key}: ";
+                $result .= transformToString($value['new']['value'], $nextDepht);
+                $result .= $spacesWithoutOperator . "}\n";
+            } else {
+                //var_dump("KUKUHUEV");
+                $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
+            }
+
+            //$result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
+            //$result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
             continue;
         }
     }
@@ -152,6 +195,8 @@ function transformToString($arr, $depht = 1): string
 
 function formatRow($key, $value, $operand = null)
 {
+
+    //if ($value === 'value')
     if (is_null($value)) {
         $value = 'null';
     }
