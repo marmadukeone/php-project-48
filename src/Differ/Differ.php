@@ -9,8 +9,8 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
-    print_r($commonArray);
-    return [];
+    //print_r($commonArray);
+    //return [];
     $result = transformToString($commonArray);
     return $result;
 }
@@ -29,19 +29,19 @@ function transformToCommonArray(array $arr1, array $arr2): array
             if (is_array($value) && is_array($arr2[$key])) {
                 //вложенные
                 $temp = transformToCommonArray($value, $arr2[$key]);
-                var_dump("1");
-                print_r($temp);
+                //var_dump("1");
+                //print_r($temp);
                 if (!empty($temp)) {
                     $result[$key]['value'] = $temp;
                 }
             }
             if (is_array($value) && !is_array($arr2[$key])) {
                 //если первый массив, а второй не массив
-                var_dump("1");
+                //var_dump("11");
 
             }
             if (!is_array($value) && is_array($arr2[$key])) {
-                var_dump("2");
+                //var_dump("2");
             }
 
             //старое если
@@ -62,7 +62,7 @@ function transformToCommonArray(array $arr1, array $arr2): array
         } else {
             //нету во втором
             if (is_array($value)) {
-                var_dump("ARRAY old");
+                //var_dump("ARRAY old");
                 $result[$key]['old']['value'] = transformToCommonArray($value, []);
                 $result[$key]['new'] = null;
 
@@ -75,7 +75,7 @@ function transformToCommonArray(array $arr1, array $arr2): array
     foreach ($arr2 as $key => $value) {
         //нету в первом
         if (is_array($value)) {
-            var_dump("ARRAY new");
+            //var_dump("ARRAY new");
             $result[$key]['old'] = null;
             $result[$key]['new']['value'] = transformToCommonArray($value, []);
 
