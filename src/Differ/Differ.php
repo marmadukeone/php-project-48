@@ -9,8 +9,8 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
-    //print_r($commonArray);
-    //return [];
+    print_r($commonArray);
+    return [];
     $result = transformToString($commonArray);
     return $result;
 }
