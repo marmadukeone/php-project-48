@@ -63,9 +63,11 @@ function transformToCommonArray(array $arr1, array $arr2): array
             //нету во втором
             if (is_array($value)) {
                 //var_dump("ARRAY old");
-                $result[$key]['value'] = transformToCommonArray($value, []);
-                //$result[$key]['new'] = null;
-
+                if (empty($arr2)) {
+                    $result[$key]['value'] = transformToCommonArray($value, []);
+                } else {
+                    $result[$key]['old']['value'] = transformToCommonArray($value, []);
+                }
             } else {
                 $result[$key]['value'] = $value;
                 //$result[$key]['new'] = null;
@@ -76,8 +78,8 @@ function transformToCommonArray(array $arr1, array $arr2): array
         //нету в первом
         if (is_array($value)) {
             //var_dump("ARRAY new");
-            //$result[$key]['old'] = null;
-            $result[$key]['value'] = transformToCommonArray($value, []);
+            $result[$key]['old'] = null;
+            $result[$key]['new']['value'] = transformToCommonArray($value, []);
 
         } else {
             //$result[$key]['old'] = null;
