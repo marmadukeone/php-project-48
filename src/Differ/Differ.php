@@ -9,13 +9,13 @@ function genDiff(string $pathFile1, string $pathFile2)
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
     $commonArray = transformToCommonArray($array1, $array2);
-    ///print_r($commonArray);
-    //return [];
+    // print_r($commonArray);
+    // return [];
     $result = transformToString($commonArray);
     return $result;
 }
 
-function transformToCommonArray(array $arr1, array $arr2): array
+function transformToCommonArray(?array $arr1, ?array $arr2): array
 {
     /*
     Тут просто записываешь в old->value, new->value или просто value какие-то значение явно. Но фактически,
@@ -23,87 +23,94 @@ function transformToCommonArray(array $arr1, array $arr2): array
     Нужно это делать для того, чтобы обрабатывать правильно вложенные массивы.
     */
     $result = [];
-    foreach ($arr1 as $key => $value) {
-        if (array_key_exists($key, $arr2)) {
-            //ключ есть в обоих
-            if (is_array($value) && is_array($arr2[$key])) {
-                //вложенные
-                $temp = transformToCommonArray($value, $arr2[$key]);
-                //var_dump("1");
-                //print_r($temp);
-                if (!empty($temp)) {
-                    $result[$key]['value'] = $temp;
+    if (!is_null($arr1)) {
+        $isNullArr2 = false;
+        if (is_null($arr2)) {
+            $arr2 = [];
+            $isNullArr2 = true;
+        }
+
+        foreach ($arr1 as $key => $value) {
+            if (array_key_exists($key, $arr2)) {
+                //ключ есть в обоих
+                if (is_array($value) && is_array($arr2[$key])) {
+                    //вложенные
+                    $temp = transformToCommonArray($value, $arr2[$key]);
+                    //var_dump("1");
+                    //print_r($temp);
+                    if (!empty($temp)) {
+                        $result[$key]['value'] = $temp;
+                    }
                 }
-            }
-            if (is_array($value) && !is_array($arr2[$key])) {
-                //если первый массив, а второй не массив
-                //var_dump("11");
-                $result[$key]['old']['value'] = transformToCommonArray($value, []);
-                $result[$key]['new']['value'] = $arr2[$key];
-
-            }
-            if (!is_array($value) && is_array($arr2[$key])) {
-                //var_dump("2");
-                //$result[$key]['old']['value'] = transformToCommonArray($value, []);
-                //$result[$key]['new']['value'] = $arr2[$key];
-            }
-
-            //старое если
-            if (!is_array($value) && !is_array($arr2[$key])) {
-                //если не оба массивы - просто сравниваем значение
-                if ($value !== $arr2[$key]) {
-                    //значения не совпадают
-
-                    $result[$key]['old']['value'] = $value;
+                if (is_array($value) && !is_array($arr2[$key])) {
+                    //если первый массив, а второй не массив
+                    //var_dump("11");
+                    $result[$key]['old']['value'] = transformToCommonArray($value, null);
                     $result[$key]['new']['value'] = $arr2[$key];
-                } else {
-                    //совпадают - простовалию
-                    $result[$key]['value'] = $value;
                 }
-            }
-            //ну что как на это отреагирует влад?
-            unset($arr2[$key]);
-        } else {
-            //нету во втором
-            if (is_array($value)) {
-                //var_dump("ARRAY old");
-                if (empty($arr2)) {
-                    $result[$key]['value'] = transformToCommonArray($value, []);
-                } else {
-                    $result[$key]['old']['value'] = transformToCommonArray($value, []);
-                }
-            } else {
-                if (empty($arr2)) {
-                    $result[$key]['value'] = $value;
-                } else {
-                    $result[$key]['old']['value'] = $value;
+                if (!is_array($value) && is_array($arr2[$key])) {
+                    //var_dump("2");
+                    //$result[$key]['old']['value'] = transformToCommonArray($value, []);
+                    //$result[$key]['new']['value'] = $arr2[$key];
                 }
 
-                //$result[$key]['new'] = null;
+                //старое если
+                if (!is_array($value) && !is_array($arr2[$key])) {
+                    //если не оба массивы - просто сравниваем значение
+                    if ($value !== $arr2[$key]) {
+                        //значения не совпадают
+
+                        $result[$key]['old']['value'] = $value;
+                        $result[$key]['new']['value'] = $arr2[$key];
+                    } else {
+                        //совпадают - простовалию
+                        $result[$key]['value'] = $value;
+                    }
+                }
+                //ну что как на это отреагирует влад?
+                unset($arr2[$key]);
+            } else {
+                //нету во втором
+                if ($isNullArr2) {
+                    if (is_array($value)) {
+                        $result[$key]['value'] = transformToCommonArray($value, null);
+                    } else {
+                        $result[$key]['value'] = $value;
+                    }
+                    continue;
+                }
+
+                if (is_array($value)) {
+                    $result[$key]['new'] = null;
+                    $result[$key]['old']['value'] = transformToCommonArray($value, null);
+                } else {
+                    $result[$key]['old']['value'] = $value;
+                    $result[$key]['new'] = null;
+                }
             }
         }
     }
-    foreach ($arr2 as $key => $value) {
-        //нету в первом
-        if (is_array($value)) {
-            //var_dump("ARRAY new");
-            //$result[$key]['old'] = null;
-            if (empty($arr1)) {
-                $result[$key]['value'] = transformToCommonArray([], $value);
-            } else {
-                $result[$key]['new']['value'] = transformToCommonArray([], $value);
+
+    if (!is_null($arr2)) {
+        foreach ($arr2 as $key => $value) {
+            if (is_null($arr1)) {
+                if (is_array($value)) {
+                    $result[$key]['value'] = transformToCommonArray(null, $value);
+                } else {
+                    $result[$key]['value'] = $value;
+                }
+
+                continue;
             }
 
-        } else {
-            //$result[$key]['old'] = null;
-            if (empty($arr1)) {
-                $result[$key]['value'] = $value;
+            if (is_array($value)) {
+                $result[$key]['old'] = null;
+                $result[$key]['new']['value'] = transformToCommonArray(null, $value);
             } else {
+                $result[$key]['old'] = null;
                 $result[$key]['new']['value'] = $value;
             }
-
         }
-
     }
     ksort($result);
     return $result;
@@ -168,8 +175,6 @@ function transformToString($arr, $depht = 1): string
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
                 $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
-                
-
             }
             if (is_array($value['new']['value'])) {
                 //var_dump("PIDRAS");
