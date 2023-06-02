@@ -118,9 +118,9 @@ function transformToCommonArray(?array $arr1, ?array $arr2): array
 
 
 
-function transformToString($arr, $depht = 1): string
+function transformToString($arr, $depht = 2): string
 {
-    $nextDepht = $depht + 3;
+    $nextDepht = $depht + 4;
     $spacesWithOperator = str_repeat(" ", $depht);
     // uncomment for debug depht:
     // $debugDephtStr = $depht % 10;
@@ -191,7 +191,7 @@ function transformToString($arr, $depht = 1): string
             continue;
         }
     }
-    if ($depht === 1) {
+    if ($depht === 2) {
         $result .= "}\n";
     }
 
@@ -211,7 +211,12 @@ function formatRow($key, $value, $operand = null)
     if ($value === false) {
         $value = 'false';
     }
-    $result = $key . ": " . $value . "\n";
+    //костылек чтобы ты заплакала - если валию сука === "" (то есть это не нулл, это пустая строка)
+    if ($value === "") {
+        $result = $key . ":" . "\n";
+    } else {
+        $result = $key . ": " . $value . "\n";
+    }
     if ($operand) {
         $result = $operand . " " . $result;
     }

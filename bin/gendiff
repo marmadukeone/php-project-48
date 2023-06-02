@@ -26,8 +26,8 @@ use function Differ\Parsers\Parser\parseFile;
 //  $args = $response->args;
 // echo genDiff($args['<firstFile>'], $args['<secondFile>']);
 
-
-$result = genDiff("./tests/fixtures/file1_2.json", "./tests/fixtures/file2_2.json");
+$result = genDiff("./tests/fixtures/file1.json", "./tests/fixtures/file2.json");
+//$result = genDiff("./tests/fixtures/file1_2.json", "./tests/fixtures/file2_2.json");
 // $result = transformToString([
 //     'group2' => [
 //         'old' => [
