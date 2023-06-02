@@ -18,12 +18,19 @@
 
 ## README ABOUT PARSER MODULE
 
-This module will help you to read YAML/YML/JSON and get associative array with content.
-Module have only 1 function - parse, which is get a path to file and get result as array
+This module will help you to read YAML/YML/JSON, create common array from 2 arrays, output result as like neested json.
+
+## The module have 3 functions:
+1. parseFile(string $pathToFile)
+2. transformToCommonArray(?array $arr1, ?array $arr2)
+3. stylish($arr, $depht = 2)
+
+### parseFile(string $pathToFile), 
+It is get a path to JSON/YML/YAML file and return content as array
 
 🔍 **If function can't support extension of file it will output null**
 
-### Example of using
+#### Example of using
 
 Input file:
 
@@ -43,6 +50,20 @@ Result:
 >  ["host"]=>
 > string(9) "hexlet.io"
 >}
+
+### transformToCommonArray(?array $arr1, ?array $arr2)
+This function create common array on keys fron 2 arrays. I'm lazy and will not write more, but this function was reason of my heahache about 2 weeks. 
+
+#### Example of using
+⛔️todo
+
+### stylish($arr, $depht = 2)
+This function output diff from common array in format like json;
+
+#### Example of using
+⛔️todo
+
+
 
 ## QUESTIONS
 

@@ -6,27 +6,27 @@ use function Differ\Differ\genDiff;
 use function Differ\Differ\transformToString;
 use function Differ\Parsers\Parser\parseFile;
 
-// $doc = <<<DOC
+ $doc = <<<DOC
 
-// Usage:
-//   gendiff (-h|--help)
-//   gendiff (-v|--version)
-//   gendiff [--format <fmt>] <firstFile> <secondFile>
+ Usage:
+   gendiff (-h|--help)
+  gendiff (-v|--version)
+   gendiff [--format <fmt>] <firstFile> <secondFile>
 
-// Options:
-//   -h --help                     Show this screen
-//   -v --version                  Show version
-//   --format <fmt>                Report format [default: stylish]
-// DOC;
+ Options:
+   -h --help                     Show this screen
+   -v --version                  Show version
+   --format <fmt>                Report format [default: stylish]
+ DOC;
 
-// $response = Docopt::handle($doc, [
-//   'version'=> 'Naval Fate 2.0',
-// ]);
+ $response = Docopt::handle($doc, [
+   'version'=> 'Naval Fate 2.0',
+ ]);
 
-//  $args = $response->args;
-// echo genDiff($args['<firstFile>'], $args['<secondFile>']);
+$args = $response->args;
+echo genDiff($args['<firstFile>'], $args['<secondFile>'], $args['<format>'] = "stylish");
 
-$result = genDiff("./tests/fixtures/file1.json", "./tests/fixtures/file2.json");
+////$result = genDiff("./tests/fixtures/file1.json", "./tests/fixtures/file2.json");
 //$result = genDiff("./tests/fixtures/file1_2.json", "./tests/fixtures/file2_2.json");
 // $result = transformToString([
 //     'group2' => [
@@ -47,4 +47,4 @@ $result = genDiff("./tests/fixtures/file1.json", "./tests/fixtures/file2.json");
 //         'new' => null,
 //     ]
 // ]);
-print_r($result);
+//print_r($result);
