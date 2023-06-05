@@ -6,7 +6,9 @@
     },
     "files": [
       "src/Differ/Differ.php",
-      "src/Differ/Parsers/Parser.php"
+      "src/Differ/Parsers/Parser.php",
+      "src/Differ/Parsers/Stylish.php",
+      "src/Differ/Parsers/CommonArray.php"
     ]
   },
   "autoload-dev": {
