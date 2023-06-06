@@ -12,7 +12,7 @@ function genDiff(string $pathFile1, string $pathFile2, $formater = "stylish")
 {
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
-    var_dump($array2);
+    //var_dump($array2);
     $commonArray = transformToCommonArray($array1, $array2);
     //var_dump($commonArray);
     switch($formater) {

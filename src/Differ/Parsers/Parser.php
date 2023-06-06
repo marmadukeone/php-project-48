@@ -14,8 +14,9 @@ function parseFile(string $pathToFile): ?array
         $content = file_get_contents($pathToFile);
         return json_decode($content, true);
     } elseif (($extension === 'yml') || ($extension === 'yaml')) {
-        $content = Yaml::parseFile($pathToFile, Yaml::PARSE_OBJECT_FOR_MAP);
-        return get_object_vars($content);
+        //$content = Yaml::parseFile($pathToFile, Yaml::PARSE_OBJECT_FOR_MAP);
+        $content = Yaml::parseFile($pathToFile);
+        return $content;
     } else {
         return null;
     }
