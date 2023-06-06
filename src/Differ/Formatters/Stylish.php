@@ -1,6 +1,6 @@
 <?php
 
-namespace Differ\Parsers\Stylish;
+namespace Differ\Formatters\Stylish;
 
 function stylish($arr, $depht = 2): string
 {

@@ -18,16 +18,17 @@
 
 ## README ABOUT PARSER MODULE
 
-This module will help you to read YAML/YML/JSON, create common array from 2 arrays, output result as like neested json.
+This module will help you to read YAML/YML/JSON, create common array from 2 arrays.
 
-## The module have 3 functions:
+## The module have 2 functions:
 1. parseFile(string $pathToFile)
 2. transformToCommonArray(?array $arr1, ?array $arr2)
-3. stylish($arr, $depht = 2)
+
+
+
 
 ### parseFile(string $pathToFile), 
 It is get a path to JSON/YML/YAML file and return content as array
-
 🔍 **If function can't support extension of file it will output null**
 
 #### Example of using
@@ -57,25 +58,33 @@ This function create common array on keys fron 2 arrays. I'm lazy and will not w
 #### Example of using
 ⛔️todo
 
+
+## README ABOUT FORMATTERS MODULE
+⛔️todo
+
+## The module have 3 functions:
+1. stylish($arr, $depht = 2)
+2. plain($arr, $parent = "")
+3. toJson(array $arr)
+
 ### stylish($arr, $depht = 2)
 This function output diff from common array in format like json;
 
 #### Example of using
 ⛔️todo
 
+### plain($arr, $parent = "")
+⛔️todo
 
+#### Example of using
+⛔️todo
 
-## QUESTIONS
-
-1.
+### toJson(array $arr)
+⛔️todo
+#### Example of using
+⛔️todo
 
 ## TODO
-1. Напишите тесты ✅
-2. Сделайте фикстуру yaml со вложенностью, по аналогии с описанным выше json ✅
-3. Реализуйте нахождение различий для файлов, имеющих вложенные структуры ⛔️
-4. Реализуйте форматер выводящий внутреннее дерево как показано сверху. Назовите его stylish ⛔️
-5. Добавьте текущий форматер как форматер по умолчанию для библиотеки. Это значит, что данный форматер применяется, если не указан какой-то другой ⛔️
-6. Укажите stylish как форматер по умолчанию в исполняемом файле ⛔️
 7. Добавьте в ридми аскинему с примером работы пакета ⛔️
 
 
