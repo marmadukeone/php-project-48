@@ -15,22 +15,18 @@ function genDiff(string $pathFile1, string $pathFile2, $formater = "stylish")
     //var_dump($array2);
     $commonArray = transformToCommonArray($array1, $array2);
     //var_dump($commonArray);
-    switch($formater) {
-        case "stylish": {
+    switch ($formater) {
+        case "stylish":
             $result = stylish($commonArray);
             break;
-        }
-        case "plain": {
+        case "plain":
             $result = plain($commonArray);
             break;
-        }
-        case "json": {
+        case "json":
             $result = toJson($commonArray);
             break;
-        }
-        default: {
+        default:
             return "Error. Incorrect type of formatter";
-        }
     }
     return $result;
 }

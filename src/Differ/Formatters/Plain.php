@@ -9,11 +9,9 @@ function plain($arr, $parent = ""): string
     //var_dump($arr);
     $result = "";
     foreach ($arr as $key => $value) {
-
         $keyPlusParent = $parent === "" ? $key : $parent . "." . $key;
         var_dump("KEY:", $parent);
         if (array_key_exists('value', $value)) {
-
             if (is_array($value['value'])) {
                 //$parent = $parent === "" ? $key: $parent . "." . $key;
                 $result .= plain($value['value'], $keyPlusParent);
@@ -24,25 +22,21 @@ function plain($arr, $parent = ""): string
             }
             continue;
         }
-
         if (is_null($value['old'])) {
             if (is_array($value['new']['value'])) {
                 //add + complex
                 $result .= formatRowPlain($keyPlusParent, "add", "", "[complex value]");
-
             } else {
                 //add + simple value
                 $result .= formatRowPlain($keyPlusParent, "add", "", $value['new']['value']);
             }
             continue;
         }
-
         if (is_null($value['new'])) {
             //remove (without value)
             $result .= formatRowPlain($keyPlusParent, "remove");
             continue;
         }
-
         if (!is_null($value['old'] && !is_null($value['new']))) {
             if (is_array($value['old']['value'])) {
                 if (is_array($value['new']['value'])) {
@@ -52,7 +46,6 @@ function plain($arr, $parent = ""): string
                     //complex - value
                     $result .= formatRowPlain($keyPlusParent, "update", "[complex value]", $value['new']['value']);
                 }
-
             } else {
                 if (is_array($value['new']['value'])) {
                     //value - complex
@@ -75,19 +68,15 @@ function formatRowPlain(string $property, $action, $oldValue = null, $newValue =
     $newValue = formatValue($newValue);
     $oldValue = formatValue($oldValue);
     switch ($action) {
-        case "add": {
-                $output = "Property '{$property}' was added with value: {$newValue}\n";
-                return $output;
-            }
-        case "remove": {
-                return "Property '{$property}' was removed\n";
-            }
-        case "update": {
-                return "Property '{$property}' was updated. From {$oldValue} to {$newValue}\n";
-            }
-        default: {
-                return "There is mistake!";
-            }
+        case "add":
+            $output = "Property '{$property}' was added with value: {$newValue}\n";
+            return $output;
+        case "remove":
+            return "Property '{$property}' was removed\n";
+        case "update":
+            return "Property '{$property}' was updated. From {$oldValue} to {$newValue}\n";
+        default:
+            return "There is mistake!";
     }
 }
 
@@ -104,7 +93,7 @@ function formatValue($value): string
     }
     if ($value === "") {
         return "''";
-    } 
+    }
     if ($value === "[complex value]") {
         return $value;
     } else {
