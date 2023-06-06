@@ -76,7 +76,7 @@ function stylish($arr, $depht = 2): string
         }
     }
     if ($depht === 2) {
-        $result .= "}\n";
+        $result .= "}";
     }
 
     return $result;
