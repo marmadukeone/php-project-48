@@ -14,12 +14,6 @@
             "src/Formatters/Json.php"
         ]
     },
-    "authors": [
-        {
-            "name": "Roman Burko",
-            "email": "redstone.kem@gmail.com"
-        }
-    ],
     "require": {
         "docopt/docopt": "^1.0",
         "symfony/yaml": "^5.3",
