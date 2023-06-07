@@ -10,7 +10,7 @@ function plain($arr, $parent = ""): string
     $result = "";
     foreach ($arr as $key => $value) {
         $keyPlusParent = $parent === "" ? $key : $parent . "." . $key;
-        var_dump("KEY:", $parent);
+        //var_dump("KEY:", $parent);
         if (array_key_exists('value', $value)) {
             if (is_array($value['value'])) {
                 //$parent = $parent === "" ? $key: $parent . "." . $key;
