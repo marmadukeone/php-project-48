@@ -2,9 +2,8 @@
 
 namespace Differ\Formatters\Plain;
 
-function plain($arr, $parent = ""): string
+function plain(array $arr, string $parent = ""): string
 {
-
     //var_dump("CURRENT ARRAY\n");
     //var_dump($arr);
     $result = "";
@@ -65,7 +64,7 @@ function plain($arr, $parent = ""): string
     }
     return $result;
 }
-function formatRowPlain(string $property, $action, $oldValue = null, $newValue = null)
+function formatRowPlain(string $property, string $action, mixed $oldValue = null, mixed $newValue = null)
 {
     //transform values
     $newValue = formatValue($newValue);
@@ -83,7 +82,7 @@ function formatRowPlain(string $property, $action, $oldValue = null, $newValue =
     }
 }
 
-function formatValue($value): string
+function formatValue(mixed $value): string
 {
     if (is_null($value)) {
         return 'null';

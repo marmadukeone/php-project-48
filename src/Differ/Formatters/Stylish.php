@@ -2,17 +2,15 @@
 
 namespace Differ\Formatters\Stylish;
 
-function stylish($arr, $depht = 2): string
+function stylish(array $arr, int $depht = 2): string
 {
     $nextDepht = $depht + 4;
     $spacesWithOperator = str_repeat(" ", $depht);
     // uncomment for debug depht:
     // $debugDephtStr = $depht % 10;
     // $spacesWithOperator = str_repeat($debugDephtStr, $depht);
-
     $spacesWithoutOperator = $spacesWithOperator . str_repeat(" ", 2); // "+ " = 2 symbols
     $result = "{\n";
-
     foreach ($arr as $key => $value) {
         //var_dump("KEY1:", $key);
         if (array_key_exists('value', $value)) {
@@ -84,7 +82,7 @@ function stylish($arr, $depht = 2): string
     return $result;
 }
 
-function formatRow($key, $value, $operand = null)
+function formatRow(string $key, string|int $value, string $operand = null)
 {
 
     //if ($value === 'value')

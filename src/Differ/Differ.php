@@ -8,7 +8,7 @@ use function Differ\Formatters\Stylish\stylish;
 use function Differ\Formatters\Plain\plain;
 use function Differ\Formatters\Json\toJson;
 
-function genDiff(string $pathFile1, string $pathFile2, $formater = "stylish")
+function genDiff(string $pathFile1, string $pathFile2, string $formater = "stylish"): string
 {
     $array1 = parseFile($pathFile1);
     $array2 = parseFile($pathFile2);
