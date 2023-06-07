@@ -82,7 +82,7 @@ function stylish(array $arr, int $depht = 2): string
     return $result;
 }
 
-function formatRow(string $key, string|int $value, string $operand = null)
+function formatRow(string $key, $value, string $operand = null)
 {
 
     //if ($value === 'value')

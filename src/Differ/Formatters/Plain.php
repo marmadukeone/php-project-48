@@ -64,7 +64,7 @@ function plain(array $arr, string $parent = ""): string
     }
     return $result;
 }
-function formatRowPlain(string $property, string $action, mixed $oldValue = null, mixed $newValue = null)
+function formatRowPlain(string $property, string $action, $oldValue = null, $newValue = null)
 {
     //transform values
     $newValue = formatValue($newValue);
@@ -82,7 +82,7 @@ function formatRowPlain(string $property, string $action, mixed $oldValue = null
     }
 }
 
-function formatValue(mixed $value): string
+function formatValue($value): string
 {
     if (is_null($value)) {
         return 'null';
@@ -99,7 +99,7 @@ function formatValue(mixed $value): string
     if ($value === "[complex value]") {
         return $value;
     }
-    if (is_int($value)) {
+    if (is_numeric($value)) {
         return $value;
     }
     return "'{$value}'";
