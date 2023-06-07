@@ -99,7 +99,7 @@ function formatValue($value): string
     }
     if ($value === "[complex value]") {
         return $value;
-    } 
+    }
     if (is_int($value)) {
         return $value;
     }
