@@ -18,6 +18,7 @@ function transformToCommonArray(?array $arr1, ?array $arr2): array
         }
 
         foreach ($arr1 as $key => $value) {
+            var_dump("KEY:");
             if (array_key_exists($key, $arr2)) {
                 //ключ есть в обоих
                 if (is_array($value) && is_array($arr2[$key])) {
@@ -36,9 +37,9 @@ function transformToCommonArray(?array $arr1, ?array $arr2): array
                     $result[$key]['new']['value'] = $arr2[$key];
                 }
                 if (!is_array($value) && is_array($arr2[$key])) {
-                    //var_dump("2");
-                    //$result[$key]['old']['value'] = transformToCommonArray($value, []);
-                    //$result[$key]['new']['value'] = $arr2[$key];
+                    var_dump("TADAM");
+                    $result[$key]['old']['value'] = $value;
+                    $result[$key]['new']['value'] = transformToCommonArray($arr2[$key], null);
                 }
 
                 //старое если

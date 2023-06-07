@@ -85,5 +85,14 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultTrue, $resultGendiff);
     }
+    public function testGenDiffJsonUpgrateData2()
+    {
+        $pathToFixturesFile1 = __DIR__. "/fixtures/file3_1.json";
+        $pathToFixturesFile2 = __DIR__. "/fixtures/file3_2.json";
+        $pathToTrueResult = __DIR__. "/fixtures/result5";
+        $resultGendiff = genDiff($pathToFixturesFile1, $pathToFixturesFile2);
+        $resultTrue = file_get_contents($pathToTrueResult);
+        $this->assertEquals($resultTrue, $resultGendiff);
+    }
 
 }
