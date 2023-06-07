@@ -59,7 +59,7 @@ function plain($arr, $parent = ""): string
             continue;
         }
     }
-    var_dump($result);
+    //var_dump($result);
     if ($parent === "") {
         $result = rtrim($result, "\n");
     }
