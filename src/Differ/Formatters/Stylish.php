@@ -97,7 +97,7 @@ function formatRow($key, $value, $operand = null)
     }
     //костылек чтобы ты заплакала - если валию сука === "" (то есть это не нулл, это пустая строка)
     if ($value === "") {
-        $result = $key . ":" . "\n";
+        $result = $key . ": " . "\n";
     } else {
         $result = $key . ": " . $value . "\n";
     }
