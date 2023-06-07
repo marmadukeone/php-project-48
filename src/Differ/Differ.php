@@ -14,7 +14,7 @@ function genDiff(string $pathFile1, string $pathFile2, $formater = "stylish")
     $array2 = parseFile($pathFile2);
     //var_dump($array2);
     $commonArray = transformToCommonArray($array1, $array2);
-    var_dump($commonArray);
+    //var_dump($commonArray);
     switch ($formater) {
         case "stylish":
             $result = stylish($commonArray);

@@ -14,7 +14,7 @@ function stylish($arr, $depht = 2): string
     $result = "{\n";
 
     foreach ($arr as $key => $value) {
-        var_dump("KEY1:", $key);
+        //var_dump("KEY1:", $key);
         if (array_key_exists('value', $value)) {
             if (is_array($value['value'])) {
                 $result .= "{$spacesWithoutOperator}{$key}: ";
@@ -40,12 +40,12 @@ function stylish($arr, $depht = 2): string
 
         if (is_null($value['new'])) {
             if (is_array($value['old']['value'])) {
-                var_dump("PEDIK1");
+                //var_dump("PEDIK1");
                 $result .= "{$spacesWithOperator}- {$key}: ";
                 $result .= stylish($value['old']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
-                var_dump("PEDIK2");
+                //var_dump("PEDIK2");
                 $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
             }
             continue;
@@ -54,21 +54,21 @@ function stylish($arr, $depht = 2): string
         if (!is_null($value['old'] && !is_null($value['new']))) {
             if (is_array($value['old']['value'])) {
                 //old array
-                var_dump("PEDIK3");
+                //var_dump("PEDIK3");
                 $result .= "{$spacesWithOperator}- {$key}: ";
                 $result .= stylish($value['old']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
-                var_dump("PEDIK4");
+                //var_dump("PEDIK4");
                 $result .= $spacesWithOperator . formatRow($key, $value['old']['value'], "-");
             }
             if (is_array($value['new']['value'])) {
-                var_dump("PEDIK5");
+                //var_dump("PEDIK5");
                 $result .= "{$spacesWithOperator}+ {$key}: ";
                 $result .= stylish($value['new']['value'], $nextDepht);
                 $result .= $spacesWithoutOperator . "}\n";
             } else {
-                var_dump("PEDIK6");
+                //var_dump("PEDIK6");
                 $result .= $spacesWithOperator . formatRow($key, $value['new']['value'], "+");
             }
 
