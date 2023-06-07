@@ -1,52 +1,14 @@
 #!/usr/bin/env php
-<?PHP
-require_once __DIR__ . '/../vendor/autoload.php';
 
-use function Differ\Differ\genDiff;
-use function Differ\Differ\transformToString;
-use function Differ\Parsers\Parser\parseFile;
+<?php
 
- $doc = <<<DOC
+$autoloadPath1 = __DIR__ . '/../../../autoload.php';
+$autoloadPath2 = __DIR__ . '/../vendor/autoload.php';
 
- Usage:
-   gendiff (-h|--help)
-  gendiff (-v|--version)
-   gendiff [--format <fmt>] <firstFile> <secondFile>
+if (file_exists($autoloadPath1)) {
+    require_once $autoloadPath1;
+} else {
+    require_once $autoloadPath2;
+}
 
- Options:
-   -h --help                     Show this screen
-   -v --version                  Show version
-   --format <fmt>                Report format [default: stylish]
- DOC;
-
- $response = Docopt::handle($doc, [
-   'version'=> 'Naval Fate 2.0',
- ]);
-
-$args = $response->args;
-//var_dump($args);
-echo genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
-
-
-//$result = genDiff(".././tests/fixtures/file1_2.json", "./tests/fixtures/file_2.json", "json");
-//$result = genDiff("./tests/fixtures/file1_2.json", "./tests/fixtures/file2_2.json");
-// $result = transformToString([
-//     'group2' => [
-//         'old' => [
-//             'value' => [
-//                 'abc' => [
-//                     'value' => 123,
-//                 ],
-//                 'deep' => [
-//                     'value' => [
-//                         'id' => [
-//                             'value' => 12,
-//                         ],
-//                     ],
-//                 ]
-//             ],
-//         ],
-//         'new' => null,
-//     ]
-// ]);
-//print_r($result);
+print Differ\Cli\run();

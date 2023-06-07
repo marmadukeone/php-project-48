@@ -1,36 +1,36 @@
 {
-  "name": "hexlet/code",
-  "autoload": {
-    "psr-4": {
-      "Differ\\": "src/"
+    "name": "hexlet/code",
+    "description": "Educational Project 2: Difference Calculator",
+    "license": "MIT",
+    "autoload": {
+        "files": [
+            "src/Differ.php",
+            "src/Parsers.php",
+            "src/Cli.php",
+            "src/Diff.php",
+            "src/Formatters.php",
+            "src/Formatters/Stylish.php",
+            "src/Formatters/Plain.php",
+            "src/Formatters/Json.php"
+        ]
     },
-    "files": [
-      "src/Differ/Differ.php",
-      "src/Differ/Parsers/Parser.php",
-      "src/Differ/Parsers/CommonArray.php",
-      "src/Differ/Formatters/Stylish.php",
-      "src/Differ/Formatters/Plain.php",
-      "src/Differ/Formatters/Json.php"
+    "authors": [
+        {
+            "name": "Roman Burko",
+            "email": "redstone.kem@gmail.com"
+        }
+    ],
+    "require": {
+        "docopt/docopt": "^1.0",
+        "symfony/yaml": "^5.3",
+        "lstrojny/functional-php": "^1.17"
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "*",
+        "phpunit/phpunit": "^9",
+        "phpstan/phpstan": "^1.8"
+    },
+    "bin": [
+        "bin/gendiff"
     ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "Differ\\Tests\\": "tests/"
-    }
-    
-  },
-  "require": {
-    "docopt/docopt": "^1.0",
-    "phpunit/phpunit": "^9.6",
-    "symfony/yaml": "^5.4"
-  },
-  "bin": [
-    "bin/gendiff"
-  ],
-  "require-dev": {
-    "docopt/docopt": "^1.0",
-    "squizlabs/php_codesniffer": "*",
-    "phpunit/phpunit": "^9.6",
-    "phpunit/php-code-coverage": "9.2.26"
-  }
 }
