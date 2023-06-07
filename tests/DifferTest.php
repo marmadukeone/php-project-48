@@ -2,11 +2,9 @@
 
 namespace Differ\Tests;
 
-//require_once __DIR__ .'/../vendor/autoload.php';
 use PHPUnit\Framework\TestCase;
-
 use function Differ\Differ\genDiff;
-//use function Differ\Parsers\Parser\parseFile;
+
 
 class DifferTest extends TestCase
 {
@@ -46,7 +44,6 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultTrue, $resultGendiff);
     }
-    
     public function testGenDiffYmlUpgrate()
     {
         $pathToFixturesFile1 = __DIR__ . "/fixtures/yml1_2.yml";
@@ -65,7 +62,6 @@ class DifferTest extends TestCase
         $resultTrue = file_get_contents($pathToTrueResult);
         $this->assertEquals($resultTrue, $resultGendiff);
     }
-    
     public function testGenDiffJsonUpgratePlain()
     {
         $pathToFixturesFile1 = __DIR__ . "/fixtures/file1_2.json";
