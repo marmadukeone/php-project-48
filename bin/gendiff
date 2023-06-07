@@ -24,8 +24,8 @@ use function Differ\Parsers\Parser\parseFile;
  ]);
 
 $args = $response->args;
-var_dump($args);
-echo genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
+//var_dump($args);
+//echo genDiff($args['<firstFile>'], $args['<secondFile>'], $args['--format']);
 
 
 //$result = genDiff(".././tests/fixtures/file1_2.json", "./tests/fixtures/file_2.json", "json");
