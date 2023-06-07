@@ -60,6 +60,9 @@ function plain($arr, $parent = ""): string
         }
     }
     var_dump($result);
+    if ($parent === "") {
+        $result = rtrim($result, "\n");
+    }
     return $result;
 }
 function formatRowPlain(string $property, $action, $oldValue = null, $newValue = null)
@@ -96,7 +99,9 @@ function formatValue($value): string
     }
     if ($value === "[complex value]") {
         return $value;
-    } else {
-        return "'{$value}'";
+    } 
+    if (is_int($value)) {
+        return $value;
     }
+    return "'{$value}'";
 }
